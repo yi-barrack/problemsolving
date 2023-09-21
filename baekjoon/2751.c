@@ -1,6 +1,8 @@
 #include <stdio.h>
 
-void quickSort(int arr[], int L, int R);
+void MergeSort(int arr[], int L, int R);
+
+int temp[1000000];
 
 int main()
 {
@@ -11,39 +13,44 @@ int main()
     for (int i = 0; i < n; i++)
         scanf("%d", &arr[i]);
 
-    quickSort(arr, 0, n - 1);
+    MergeSort(arr, 0, n - 1);
 
     for (int i = 0; i < n; i++)
         printf("%d\n", arr[i]);
     return 0;
 }
 
-void quickSort(int arr[], int L, int R)
+void MergeSort(int arr[], int L, int R)
 {
-    // 좌우 설정 및 피벗값 설정
-    int left = L, right = R;
-    int pivot = arr[(L + R) / 2];
-    int temp = 0;
-    // 좌우 비교
-    do
+    if (L >= R)
+        return;
+
+    int M = (L + R) / 2;
+
+    // Divide
+
+    MergeSort(arr, L, M);
+    MergeSort(arr ,M + 1, R);
+
+    // Conquer
+
+    for (int i = L, l = L, r = M + 1;
+         l != M + 1 || r != R + 1;
+         i++)
     {
-        while (arr[left] < pivot)
-            left++;
-        while (arr[right] > pivot)
-            right--;
-        if (left <= right)
+
+        if ((r != R + 1 && l <= M && arr[l] < arr[r]) || r == R + 1)
         {
-            temp = arr[left];
-            arr[left] = arr[right];
-            arr[right] = temp;
-            left++;
-            right--;
+            temp[i] = arr[l++];
         }
-    } while (left <= right);
+        else
+        {
+            temp[i] = arr[r++];
+        }
+    }
 
-    if (L < right)
-        quickSort(arr, L, right);
-
-    if (left < R)
-        quickSort(arr, left, R);
+    for (int i = L; i <= R; i++)
+    {
+        arr[i] = temp[i];
+    }
 }
