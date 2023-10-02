@@ -9,73 +9,75 @@ typedef struct Stack
 
 void push(Stack *s, int data);
 int pop(Stack *s);
-int peek(Stack *s){
+int peek(Stack *s)
+{
     return s->s[s->rank];
 }
-int is_empty(Stack *s){
+int is_empty(Stack *s)
+{
     return s->rank == -1 ? 1 : 0;
 }
 
-int main(){
+int main()
+{
     Stack *a = (Stack *)malloc(sizeof(Stack));
     a->rank = -1;
     Stack *b = (Stack *)malloc(sizeof(Stack));
     b->rank = -1;
-    int n, data, cnt = 1, arr[1000]={0,};
+    int n, data, cnt = 1, arr[1000] = {
+                              0,
+                          };
     scanf("%d", &n);
-    for (int i = 0; i < n;i++){
+    for (int i = 0; i < n; i++)
+    {
         scanf("%d", &arr[i]);
     }
-    for (int i = n - 1; i >= 0;i--){
+    for (int i = n - 1; i >= 0; i--)
+    {
         push(a, arr[i]);
     }
 
-        while (1)
-        {
-            while (!is_empty(a))
-            {
-                if (peek(b) == cnt){
-                    pop(b);
-                    cnt++;
-                }
-                if (peek(a) == cnt)
-                {
-                    pop(a);
-                    cnt++;
-                }
-                else
-                    push(b, pop(a));
+    while (!is_empty(a))
+    {
+        if (peek(a)==cnt || peek(b)==cnt){
+            if (peek(a)==cnt){
+                pop(a);
+                cnt++;
             }
-            while (!is_empty(b))
-            {
-                if (peek(a) == cnt)
-                {
-                    pop(a);
-                    cnt++;
-                }
-                if (peek(b) == cnt)
-                {
-                    pop(b);
-                    cnt++;
-                }
-                else{
-                printf("Sad");
-                return 0;
+            else{
+                pop(b);
+                cnt++;
             }
         }
-        if (is_empty(a)&&is_empty(b)){
-            printf("Nice");
+        else
+            push(b, pop(a));
+    }
+    while (!is_empty(b))
+    {
+        if (peek(b)==cnt){
+            pop(b);
+            cnt++;
+        }
+        else
+        {
+            printf("Sad");
             return 0;
         }
-        printf("Sad");
+    }
+    if (is_empty(a) && is_empty(b))
+    {
+        printf("Nice");
         return 0;
-        }
+    }
+    printf("Sad");
 
     return 0;
 }
 
-int pop(Stack *s){
-    if (s->rank==-1){
+int pop(Stack *s)
+{
+    if (s->rank == -1)
+    {
         printf("stack empty\n");
         return -1;
     }
@@ -84,8 +86,10 @@ int pop(Stack *s){
     return pop;
 }
 
-void push(Stack *s, int data){
-    if (s->rank>=1000){
+void push(Stack *s, int data)
+{
+    if (s->rank >= 1000)
+    {
         printf("stack over flow\n");
         return;
     }
