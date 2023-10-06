@@ -1,32 +1,24 @@
 #include <stdio.h>
+#pragma warning(disable:4996)
 
 
-int main(){
-    int n=28;
-    int arr[28];
-    for (int i = 0; i < n; i++)
-    {
-        scanf("%d", &arr[i]);
-    }
 
-    for (int i = 0; i < n-1;i++){
-        for (int j = i + 1; j < n;j++){
-            if (arr[i]>arr[j]){
-                int tmp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = tmp;
-            }
-        }
-    }
-    int cnt = 1;
-    for (int i = 0; i < n; i++)
-    {
-        if (arr[i] != cnt)
-        {
-            printf("%d\n", cnt);
-            i--;
-        }
-        cnt++;
-    }
-    return 0;
+int main() {
+	int arr[31];
+	for (int i = 0; i < 31; i++) 
+		arr[i] = i;
+	int n;
+	for (int i = 0; i < 28; i++) {
+		scanf("%d", &n);
+		for (int j = 0; j < 31; j++) {
+			if (arr[j] == n)
+				arr[j] = 0;
+		}
+	}
+
+	for (int i = 0; i < 31; i++) {
+		if (arr[i] != 0)
+			printf("%d\n", arr[i]);
+	}
+	return 0;
 }
