@@ -68,6 +68,6 @@ void merge(Coor arr[], int l, int m, int r){
         b[k++] = arr[j++];
 
     for (k = l, i=0; k <= r;k++,i++)
-        arr[k] = b[k];
+        arr[k] = b[i];
     return;
 }
