@@ -1,6 +1,4 @@
-a = int(input())
-b = int(input())
+money, people = map(int, input().split())
 
-print(a+b)
-print(a-b)
-print(a*b)
+print(money//people)
+print(money%people)
